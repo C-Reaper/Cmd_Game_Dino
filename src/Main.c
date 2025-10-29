@@ -1,8 +1,11 @@
+#if defined _WIN32
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <Windows.h>
 #include <math.h>
+#include <windows.h>
+
 #include "Settings.h"
 
 #define nScreenWidth 120.0f
@@ -246,3 +249,7 @@ int main()
 
 	return 0;
 }
+
+#else
+#error "Plattform must be Windows!"
+#endif
