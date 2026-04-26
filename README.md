@@ -1,193 +1,104 @@
-# Cmd_Game_Dino
+## Overview
 
+This project appears to be a simple command-line based dinosaur game, likely inspired by the classic game "Dino Chrome Dinosaur Game". The source code is written in C and utilizes platform-specific build configurations for Linux, Windows, Wine (for running on Windows on Linux), WebAssembly, and a custom build system.
 
-## Project Overview
+## Features
 
-This project implements specialized functionality related to game_dino.
+- Command-line interface
+- Basic game mechanics similar to the classic dinosaur game
+- Platform-specific build support
+- Use of `Makefile` for project building across different environments
 
-## Core Components
+## Project Structure
 
-### Main Functionality
-- Implements core algorithms for game_dino
-- Efficient data structures
-- Optimized performance
-- Clean code organization
-
-### Technical Features
-- C/C++ implementation
-- Dynamic memory management
-- Platform-independent design
-- Real-time capable
-
-### Architecture
-- Module separation
-- Clear interface design
-- Proper abstraction layers
-- Extensible design
-
-## Use Cases
-- Production systems
-- Educational purposes
-- Research applications
-- Performance-critical operations
-
-## Performance Characteristics
-- Optimized algorithms
-- Efficient memory usage
-- Scalable architecture
-- Minimal overhead
-
-## Implementation Quality
-- Well-organized code
-- Meaningful naming
-- Proper error handling
-- Memory management
-
-## Build and Deployment
-- Standard C/C++ compilation
-- Makefile-based building
-- Cross-platform support
-- Easy integration
-
-
-## Building the Project
-
-### Prerequisites
-- C/C++ Compiler (GCC, Clang, or MSVC)
-- Make utility
-- Standard development tools
-
-### Build Steps
-
-1. Navigate to project directory:
-```bash
-cd Cmd_Game_Dino
-```
-
-2. Build the project:
-```bash
-make -f Makefile.(os) all
-```
-
-3. For clean rebuild:
-```bash
-make -f Makefile.(os) clean
-make -f Makefile.(os) all
-```
-
-4. If there are ./bin and ./libs directories, build libs with:
-```bash
-make -f Makefile.(os) cleanlib
-make -f Makefile.(os) lib
-```
-
-### Build Options
-```bash
-make -f Makefile.(os) all         # build output
-make -f Makefile.(os) do        # build + exe output
-make -f Makefile.(os) clean   # Remove build artifacts
-```
-
-## Running the Project
-
-Execute the compiled binary:
-
-```bash
-./build/Main(.exe)
-```
-
-Or using make:
-```bash
-make -f Makefile.(os) exe
-```
-
-## Project Organization
+The project directory is organized as follows:
 
 ```
-Cmd_Game_Dino/
-├── src/
-│   ├── Main.c          # Entry point
-│   └── *.c             # Implementation files
-├── Makefile            # Build configuration
+<Project>/
+├── src/                # Source code directory containing C files
+│   ├── Main.c          # Entry point of the program
+│   └── Settings.h      # Header file containing global settings and typedefs
+├── Makefile.linux      # Linux build configuration
+├── Makefile.windows    # Windows build configuration
+├── Makefile.wine       # Wine cross-compile build configuration for Windows on Linux
+├── Makefile.web        # Emscripten WebAssembly build configuration
 └── README.md           # This file
 ```
 
-## Technical Details
+## Prerequisites
 
-### Language: C/C++
-- Performance-oriented
-- Direct hardware access where needed
-- Memory efficient
-- Widely portable
+- C/C++ Compiler (GCC or Clang)
+- Make utility
+- Standard development tools
+- Libraries needed in specific projects (none explicitly listed)
 
-### Key Technologies
-- Standard C library
-- System-specific libraries as needed
-- Algorithm optimization
-- Efficient data structures
+## Build & Run
 
-### Code Quality
-- Clean, readable implementation
-- Proper error handling
-- Resource management
-- Well-documented algorithms
+### Linux
 
-## Development Notes
+To build and run the project on Linux:
 
-### Architecture Decisions
-- Modular design for reusability
-- Efficient algorithms for performance
-- Clear separation of concerns
-- Extensible structure
+```sh
+cd <Project>
+make -f Makefile.linux all
+make -f Makefile.linux exe
+```
 
-### Performance Optimizations
-- Algorithm efficiency
-- Memory layout optimization
-- Cache-conscious programming
-- Minimal overhead
+### Windows
 
-### Portability
-- Cross-platform compatible
-- Platform-specific optimizations where possible
-- Standard library usage
-- No external dependencies (where feasible)
+To build and run the project on Windows, you can use either MSYS2 or a native Windows environment.
 
-## Troubleshooting
+#### Using MSYS2
 
-### Build Issues
-- Ensure compiler is installed
-- Check file paths and permissions
-- Verify Make installation
-- Review compiler error messages
+1. Install MSYS2 from [msys2.org](https://www.msys2.org/).
+2. Open the MSYS2 shell.
+3. Navigate to your project directory.
+4. Run:
 
-### Runtime Issues
-- Check input data validity
-- Verify file accessibility
-- Ensure sufficient memory
-- Review output format
+    ```sh
+    make -f Makefile.windows all
+    make -f Makefile.windows exe
+    ```
 
-### Performance Issues
-- Check compiler optimization flags
-- Profile hot code paths
-- Review algorithm complexity
-- Consider input size
+#### Using a Native Windows Environment
 
-## Future Improvements
+1. Ensure you have MinGW installed with GCC and other necessary tools.
+2. Open the MinGW command prompt or PowerShell.
+3. Navigate to your project directory.
+4. Run:
 
-Potential enhancements:
-- Additional optimization opportunities
-- Extended functionality
-- Platform-specific optimizations
-- Performance profiling
+    ```sh
+    make -f Makefile.windows all
+    make -f Makefile.windows exe
+    ```
 
-## References
+### Wine (Windows on Linux)
 
-For technical background:
-- Algorithm textbooks
-- Computer science references
-- Language documentation
-- Online educational resources
+To build and run the project using Wine on a Linux system:
 
----
+1. Install Wine if not already installed:
+    ```sh
+    sudo apt-get install wine64
+    ```
+2. Navigate to your project directory.
+3. Run:
 
-*Project implementing practical algorithms and data structures in C/C++*
+    ```sh
+    make -f Makefile.wine alldebug
+    WINEPREFIX=~/wine64 WINEARCH=win64 wine $(TARGET)
+    ```
+
+### WebAssembly (Emscripten)
+
+To build and run the project as WebAssembly using Emscripten:
+
+1. Install Emscripten following the instructions on [emscripten.org](https://emscripten.org/docs/getting_started/downloads.html).
+2. Navigate to your project directory.
+3. Run:
+
+    ```sh
+    make -f Makefile.web all
+    wasmtime $(TARGET)
+    ```
+
+These steps should allow you to build and run the project across different environments as specified by the platform-specific `Makefile` configurations.
